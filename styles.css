@@ -148,7 +148,6 @@ body::before {
     height: 70px;
     border-radius: 40%;
     object-fit: contain;
-    border: 5px solid var(--primary-color);
     padding: 5px;
     background: white;
     box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
@@ -598,15 +597,22 @@ body::before {
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 2rem;
-    max-width: 1000px;
     margin: 0 auto;
 }
 
 .contact-info {
-    display: contents;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.info-item {
+    text-align: center;
 }
 
 .info-item h3 {
@@ -617,6 +623,17 @@ body::before {
 
 .info-item p {
     color: var(--text-secondary);
+}
+
+.info-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
 }
 
 .register-card {
@@ -735,8 +752,8 @@ body::before {
     }
 
     .college-logo {
-        width: 85px;
-        height: 70px;
+        width: 170px;
+        height: 140px;
     }
 
     .college-name {
@@ -746,6 +763,16 @@ body::before {
 
     .college-affiliation {
         font-size: 0.75rem;
+    }
+
+    /* Reduced section padding for mobile */
+    .about,
+    .schedule,
+    .speakers,
+    .contact,
+    .rules,
+    .events {
+        padding: 50px 20px;
     }
 
     .about h2,
@@ -760,7 +787,14 @@ body::before {
     }
 
     .contact-content {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .contact-content .info-item {
+        width: 100%;
     }
 
     .register-card {
@@ -1065,8 +1099,26 @@ body::before {
 }
 
 @media (max-width: 480px) {
+
+    /* Further reduced section padding for small mobile */
+    .about,
+    .schedule,
+    .speakers,
+    .contact,
+    .rules,
+    .events {
+        padding: 20px 15px;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
     .hero-content h1 {
         font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: 1px;
     }
 
     .hero {
@@ -1079,10 +1131,8 @@ body::before {
     }
 
     .college-logo {
-        width: 75px;
-        height: 62px;
-        border: 4px solid var(--primary-color);
-        padding: 4px;
+        width: 150px;
+        height: 124px;
     }
 
     .college-name {
