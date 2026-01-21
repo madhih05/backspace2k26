@@ -30,19 +30,21 @@ navLinks.forEach(link => {
 
 // Scroll animations - add fade-in effect to sections
 const observerOptions = {
-    threshold: 0.05,
-    rootMargin: '0px 0px -20px 0px'
+    threshold: [0, 0.1, 0.2],
+    rootMargin: '0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.intersectionRatio > 0.1) {
             entry.target.classList.add('in-view');
+        } else {
+            entry.target.classList.remove('in-view');
         }
     });
 }, observerOptions);
 
-const revealTargets = document.querySelectorAll('section, .feature-card, .event-card, .rules-section, .register-card, .info-item, .logo');
+const revealTargets = document.querySelectorAll('.feature-card, .event-card, .rules-section, .register-card, .info-item');
 revealTargets.forEach(el => {
     el.classList.add('reveal');
     observer.observe(el);
