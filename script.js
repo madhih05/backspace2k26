@@ -30,8 +30,8 @@ navLinks.forEach(link => {
 
 // Scroll animations - add fade-in effect to sections
 const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -80px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
