@@ -439,6 +439,10 @@ body::before {
     margin-top: 3rem;
 }
 
+.feature-card .small {
+    font-size: 0.9rem;
+}
+
 .feature-card {
     position: relative;
     background: var(--bg-card);
@@ -1151,7 +1155,8 @@ body::before {
     }
 
     .college-name {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
+        font-weight: 800;
     }
 
     .hero-subtitle {
@@ -1222,6 +1227,7 @@ body::before {
 
     .college-affiliation {
         font-size: 0.65rem;
+        padding-top: 1em;
     }
 
     .hero-subtitle {
