@@ -159,6 +159,17 @@ body::before {
     text-align: center;
 }
 
+.department {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -211,7 +222,7 @@ body::before {
         radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.15) 0, transparent 35%),
         linear-gradient(135deg, #0a0e17 0%, #0f1629 45%, #0a0e17 100%);
     color: white;
-    padding: 120px 20px 140px;
+    padding: 80px 20px 140px;
     text-align: center;
     min-height: 520px;
     display: flex;
@@ -574,6 +585,70 @@ body::before {
     padding: 0 1rem 1.5rem;
     color: var(--text-secondary);
     font-size: 0.95rem;
+}
+
+/* Committee Section */
+.committee {
+    padding: 80px 20px;
+    background-color: var(--bg-darker);
+    position: relative;
+}
+
+.committee::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.committee h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.committee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.committee-card {
+    background: var(--glass);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.committee-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+}
+
+.committee-card h3 {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.committee-name {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 500;
 }
 
 /* Contact Section */
