@@ -93,3 +93,10 @@ document.addEventListener('mousemove', (event) => {
     hero.style.setProperty('--tilt-x', (relY * -4).toFixed(2) + 'deg');
     hero.style.setProperty('--tilt-y', (relX * 4).toFixed(2) + 'deg');
 });
+
+// Email obfuscation to prevent bot harvesting
+function openEmail() {
+    const user = 'backspace2k26';
+    const domain = 'gmail.com';
+    window.location.href = 'mailto:' + user + '@' + domain;
+}
