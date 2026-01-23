@@ -820,6 +820,7 @@ body::before {
     }
 
     .hero-content h1 {
+        font-weight: 700;
         font-size: 2rem;
     }
 
@@ -842,6 +843,7 @@ body::before {
     }
 
     .college-name {
+        font-weight: 800;
         font-size: 1.3rem;
         line-height: 1.4;
     }
@@ -894,7 +896,7 @@ body::before {
         flex-direction: column;
     }
 
-    social-links {
+    .social-links {
         justify-content: center;
     }
 
@@ -964,7 +966,6 @@ body::before {
     background-color: var(--bg-card);
     padding: 2rem;
     border-radius: 8px;
-    border-left: 5px solid var(--primary-color);
     border: 1px solid var(--border-color);
     border-left: 5px solid var(--primary-color);
 }
@@ -1143,7 +1144,13 @@ body::before {
     }
 
     .college-name {
-        font-size: 1rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    .college-affiliation {
+        padding-top: 0.5em;
+        padding-bottom: 0.7em;
     }
 }
 
@@ -1182,9 +1189,6 @@ body::before {
     .container {
         padding: 0 15px;
     }
-}
-
-@media (max-width: 480px) {
 
     /* Further reduced section padding for small mobile */
     .about,
@@ -1203,7 +1207,7 @@ body::before {
 
     .hero-content h1 {
         font-size: 1.5rem;
-        font-weight: 800;
+        font-weight: 700;
         letter-spacing: 1px;
     }
 

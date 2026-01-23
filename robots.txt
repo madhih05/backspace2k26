@@ -1,0 +1,16 @@
+# robots.txt for BACKSPACE 2K26
+# https://www.robotstxt.org/
+
+# Allow all robots to access all content
+User-agent: *
+Allow: /
+
+# Sitemap location (update with your actual domain)
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl-delay for respectful crawling (optional)
+# Crawl-delay: 10
+
+# Disallow private or admin directories if any
+# Disallow: /admin/
+# Disallow: /private/
