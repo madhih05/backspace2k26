@@ -796,6 +796,13 @@ body::before {
 }
 
 /* Responsive Design */
+@media (max-width: 860px) {
+    .college-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .nav-menu {
         display: none;
