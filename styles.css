@@ -142,7 +142,7 @@ body::before {
     height: 48px;
     width: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 0.5px white) drop-shadow(0 0 0.5px white) drop-shadow(0 0 0.5px white) drop-shadow(0 0 0.5px white);
+    filter: drop-shadow(0 0 2px white) drop-shadow(0 0 2px white) drop-shadow(0 0 2px white) drop-shadow(0 0 2px white);
 }
 
 .college-header {
