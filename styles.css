@@ -494,6 +494,61 @@ body::before {
     color: var(--text-secondary);
 }
 
+/* Chief Guest Section */
+.chiefGuest {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.chiefGuest::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+.chiefGuest p:first-child {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.chiefGuest .guest-name {
+    font-size: 1.6rem;
+    color: var(--accent-color);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+.chiefGuest .guest-designation {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
 /* Schedule Section */
 .schedule {
     padding: 80px 20px;
