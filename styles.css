@@ -532,6 +532,23 @@ body::before {
     text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
 
+.chiefGuest .guest-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 10px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 8px 20px rgba(0, 0, 0, 0.3);
+    margin: 1rem auto 1.5rem;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chiefGuest .guest-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
 .chiefGuest .guest-name {
     font-size: 1.6rem;
     color: var(--accent-color);
@@ -539,6 +556,7 @@ body::before {
     margin-bottom: 1rem;
     letter-spacing: 1px;
     text-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    white-space: nowrap;
 }
 
 .chiefGuest .guest-designation {
@@ -926,6 +944,27 @@ body::before {
 
     .college-affiliation {
         font-size: 0.75rem;
+    }
+
+    .chiefGuest .guest-name {
+        font-size: 1.2rem;
+    }
+
+    .chiefGuest .guest-photo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .info-item p {
+        font-size: 0.95rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .committee-name {
+        font-size: 1rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     /* Reduced section padding for mobile */
@@ -1394,6 +1433,32 @@ body::before {
 
     .table-container {
         margin: 0 0.5rem 1.5rem;
+    }
+
+    .chiefGuest .guest-name {
+        font-size: 0.95rem;
+    }
+
+    .chiefGuest .guest-photo {
+        width: 120px;
+        height: 120px;
+        border: 8px solid var(--primary-color);
+    }
+
+    .info-item p {
+        font-size: 0.85rem;
+    }
+
+    .info-item h3 {
+        font-size: 1rem;
+    }
+
+    .committee-name {
+        font-size: 0.9rem;
+    }
+
+    .committee-card h3 {
+        font-size: 1rem;
     }
 
     .feature-card,
