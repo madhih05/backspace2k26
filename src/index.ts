@@ -16,8 +16,8 @@ if (!mongodbUri) {
 
 // Connect to MongoDB
 mongoose.connect(mongodbUri)
-    .then(() => console.log('✅ Connected to MongoDB'))
-    .catch((err) => console.error('❌ MongoDB connection error:', err));
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('MongoDB connection error:', err));
 
 // Middleware
 app.use(express.static(path.join(__dirname, '../public')));
@@ -32,5 +32,5 @@ app.get('/backspace', (req: Request, res: Response) => {
 });
 
 app.listen(PORT, HOST, () => {
-    console.log(`🚀 Server running at http://${HOST}:${PORT}`);
+    console.log(`Server running at http://${HOST}:${PORT}`);
 });
