@@ -4,6 +4,8 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import registrationRouter from './routes/register';
 import studentRouter from './routes/students';
+import logger from './helper/logger';
+import requestLogger from './middleware/request.logger';
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
@@ -12,16 +14,19 @@ const HOST: string = '0.0.0.0';
 const mongodbUri = process.env.MONGODB_URI;
 
 if (!mongodbUri) {
-    console.error('MONGODB_URI is not defined in .env file');
+    logger.error('MONGODB_URI is not defined in .env file');
     process.exit(1);
 }
 
 // Connect to MongoDB
 mongoose.connect(mongodbUri)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch((err) => console.error('MongoDB connection error:', err));
+    .then(() => logger.info('Connected to MongoDB'))
+    .catch((err) => logger.error('MongoDB connection error', err));
 
 // Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(requestLogger);
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
@@ -37,5 +42,5 @@ app.use('/register', registrationRouter);
 app.use('/students', studentRouter);
 
 app.listen(PORT, HOST, () => {
-    console.log(`Server running at http://${HOST}:${PORT}`);
+    logger.info(`Server running at http://${HOST}:${PORT}`);
 });
