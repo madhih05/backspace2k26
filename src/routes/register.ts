@@ -18,6 +18,7 @@ router.post('/otp', async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "User with this email already exists" });
+
         }
         const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
         const otpEntry = new Otp({ email, otp: otpCode });
@@ -31,7 +32,7 @@ router.post('/otp', async (req, res) => {
     }
 });
 
-router.post('/students', authOtp, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/student', authOtp, async (req: AuthenticatedRequest, res: Response) => {
     try {
         const email = req.email;
         const { username, name, phoneNumber, password, registrationNumber, department, yearOfStudy, fatherNumber, motherNumber } = req.body;

@@ -2,6 +2,8 @@ import 'dotenv/config'; // Loads variables from .env
 import mongoose from "mongoose";
 import express, { Request, Response } from 'express';
 import path from 'path';
+import registrationRouter from './routes/register';
+import studentRouter from './routes/students';
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
@@ -30,6 +32,9 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/backspace', (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, '../public/backspace.html'));
 });
+
+app.use('/register', registrationRouter);
+app.use('/students', studentRouter);
 
 app.listen(PORT, HOST, () => {
     console.log(`Server running at http://${HOST}:${PORT}`);
