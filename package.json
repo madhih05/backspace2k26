@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsc --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/madhih05/backspace2k26#readme",
   "dependencies": {
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "mongoose": "^9.1.5"
   },
