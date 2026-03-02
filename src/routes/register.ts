@@ -4,6 +4,7 @@ import User from '../models/users';
 import Student from '../models/students';
 import AuthorizedUser from '../models/authorizedUsers';
 import Otp from '../models/otp';
+import Staffs from '../models/staffs';
 import mailSender from '../helper/mailer';
 import jwt from 'jsonwebtoken';
 import authOtp, { AuthenticatedRequest } from '../middleware/auth.otp';
@@ -126,7 +127,24 @@ router.post('/admin', authOtp, async (req: AuthenticatedRequest, res: Response) 
 
         const user = new User({ username, name, email, phoneNumber, passwordHash: hashedPassword, role });
 
-        await user.save();
+        const savedUser = await user.save();
+
+        if (role === 'staff') {
+            const { tutorOf, year, subjects } = req.body;
+            if (!tutorOf || !year || !subjects) {
+                User.deleteOne({ _id: savedUser._id }).catch(err => logger.error('Failed to clean up user after staff registration failure', err));
+                return res.status(400).json({ message: "TutorOf, year, and subjects are required for staff role" });
+            }
+
+            const staff = new Staffs({
+                userId: savedUser._id,
+                tutorOf,
+                year,
+                subjects
+            });
+            await staff.save();
+
+        }
 
         const token = jwt.sign({ email, role }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
 
