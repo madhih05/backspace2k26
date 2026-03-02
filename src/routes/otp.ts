@@ -7,7 +7,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.post('/otp', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         if (!req.body || typeof req.body !== 'object') {
             return res.status(400).json({
@@ -37,7 +37,7 @@ router.post('/otp', async (req, res) => {
     }
 });
 
-router.post('/verifyOtp', async (req, res) => {
+router.post('/verify', async (req, res) => {
     try {
         const { email, otp } = req.body;
         if (!email || !otp) {
