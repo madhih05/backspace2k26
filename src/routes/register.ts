@@ -2,6 +2,7 @@ import { Response, Router } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/users';
 import Student from '../models/students';
+import AuthorizedUser from '../models/authorizedUsers';
 import Otp from '../models/otp';
 import mailSender from '../helper/mailer';
 import jwt from 'jsonwebtoken';
@@ -99,19 +100,16 @@ router.post('/admin', authOtp, async (req: AuthenticatedRequest, res: Response) 
     try {
         const email = req.email;
         const role = req.role;        
-
+        
         if (!email || !role) {
             return res.status(400).json({ message: "Email and role are required" });
         }
 
-        if (role === 'admin' && !['madhihraheem05@gmail.com', 'sbmhodcse@gmail.com'].includes(email)) {
-            return res.status(403).json({ message: "You cannot create an admin account with this email" });
+        const authorizedUser = await AuthorizedUser.findOne({ email, role });
+        if (!authorizedUser) {
+            return res.status(403).json({ message: "You are not authorized to create an admin account" });
         }
  
-        if (role !== 'admin' && role !== 'staff') {
-            return res.status(403).json({ message: "Only admins can create admin accounts" });
-        }
-
         const { username, name, phoneNumber, password } = req.body;
 
         if (!username || !name || !email || !phoneNumber || !password) {
