@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export interface AuthenticatedRequest extends Request {
     email?: string;
+    role?: string;
 }
 
 const authOtp = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -12,8 +13,10 @@ const authOtp = async (req: AuthenticatedRequest, res: Response, next: NextFunct
         if (!token) {
             return res.status(401).json({ message: "No token provided" });
         }
-        const decoded = jwt.verify(token, jwtSecret as string) as { email: string };
+        const decoded = jwt.verify(token, jwtSecret as string) as { email: string, role: string };
         req.email = decoded.email;
+        req.role = decoded.role; 
+        console.log(`Authenticated OTP for email: ${req.email}, role: ${req.role}`);
         next();
 
     } catch (error) {

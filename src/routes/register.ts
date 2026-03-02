@@ -12,24 +12,26 @@ const router = Router();
 
 router.post('/otp', async (req, res) => {
     try {
-        const email = req.body?.email;
         if (!req.body || typeof req.body !== 'object') {
             return res.status(400).json({
                 message: 'Request body is missing or invalid. Send JSON with Content-Type: application/json'
             });
         }
+        const email = req.body.email;
+        const role = req.body.role || 'student';
         if (!email) {
             return res.status(400).json({ message: "Email is required" });
         }
         const existingUser = await User.findOne({ email });
-        if (existingUser) {
+        if (existingUser && role === 'student') {
             return res.status(400).json({ message: "User with this email already exists" });
         }
         const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-        const otpEntry = new Otp({ email, otp: otpCode });
+        const otpEntry = new Otp({ email, role, otp: otpCode });
 
         await mailSender(email, "Your OTP for Registration", `<p>Your OTP for registration is: <b>${otpCode}</b>. It will expire in 5 minutes.</p>`);
         
+        await Otp.deleteMany({ email });
         await otpEntry.save();
         res.json({ message: "OTP sent to email" });
     } catch (err: any) {
@@ -48,7 +50,7 @@ router.post('/verifyOtp', async (req, res) => {
         if (!otpEntry) {
             return res.status(400).json({ message: "Invalid OTP" });
         }
-        const token = jwt.sign({ email }, process.env.JWT_SECRET as string, { expiresIn: '1h' });
+        const token = jwt.sign({ email: otpEntry.email, role: otpEntry.role }, process.env.JWT_SECRET as string, { expiresIn: '1h' });
         await Otp.deleteOne({ _id: otpEntry._id });
         res.json({ message: "OTP verified", token });
     } catch (err: any) {
@@ -89,6 +91,51 @@ router.post('/students', authOtp, async (req: AuthenticatedRequest, res: Respons
     }
 catch (err: any) {
     logger.error('Failed to register student', err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
+router.post('/admin', authOtp, async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        const email = req.email;
+        const role = req.role;        
+
+        if (!email || !role) {
+            return res.status(400).json({ message: "Email and role are required" });
+        }
+
+        if (role === 'admin' && !['madhihraheem05@gmail.com', 'sbmhodcse@gmail.com'].includes(email)) {
+            return res.status(403).json({ message: "You cannot create an admin account with this email" });
+        }
+ 
+        if (role !== 'admin' && role !== 'staff') {
+            return res.status(403).json({ message: "Only admins can create admin accounts" });
+        }
+
+        const { username, name, phoneNumber, password } = req.body;
+
+        if (!username || !name || !email || !phoneNumber || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const existingUser = await User.findOne({$or: [{ email }, { username }, { phoneNumber }]});
+
+        if (existingUser) {
+            return res.status(400).json({ message: "User with this email, username, or phone number already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = new User({ username, name, email, phoneNumber, passwordHash: hashedPassword, role });
+
+        await user.save();
+
+        const token = jwt.sign({ email, role }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
+
+        res.json({ message: "Admin registration successful", token, user });
+    }
+catch (err: any) {
+    logger.error('Failed to register admin', err);
         res.status(500).json({ message: err.message });
     }
 });
