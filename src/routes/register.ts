@@ -143,7 +143,6 @@ router.post('/admin', authOtp, async (req: AuthenticatedRequest, res: Response) 
                 subjects
             });
             await staff.save();
-
         }
 
         const token = jwt.sign({ email, role }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
