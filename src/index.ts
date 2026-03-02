@@ -6,6 +6,7 @@ import registrationRouter from './routes/register';
 import studentRouter from './routes/students';
 import logger from './helper/logger';
 import requestLogger from './middleware/request.logger';
+import otpRouter from './routes/otp';
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
@@ -39,6 +40,7 @@ app.get('/backspace', (req: Request, res: Response) => {
 });
 
 app.use('/register', registrationRouter);
+app.use('/otp', otpRouter);
 app.use('/students', studentRouter);
 
 app.listen(PORT, HOST, () => {
