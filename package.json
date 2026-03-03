@@ -22,11 +22,20 @@
   },
   "homepage": "https://github.com/madhih05/backspace2k26#readme",
   "dependencies": {
+    "@prisma/client": "^7.4.0",
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongoose": "^9.1.5"
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.5",
+    "morgan": "^1.10.1"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^25.3.0",
+    "prisma": "^6.19.2",
     "typescript": "^5.0.0"
   }
 }
