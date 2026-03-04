@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import Student from '../models/students';
 const router = Router();
-import authOtp, { AuthenticatedRequest } from '../middleware/auth.otp';
 import { verifyToken, AuthRequest } from '../middleware/auth.middleware';
 import Staff from '../models/staffs';
 

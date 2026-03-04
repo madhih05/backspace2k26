@@ -1,9 +1,11 @@
-import User from '../models/users';
 import jwt from 'jsonwebtoken';
 import logger from '../helper/logger';
 import mailSender from '../helper/mailer';
 import Otp from '../models/otp';
 import { Router } from 'express';
+import Admin from '../models/admin';
+import Student from '../models/students';
+import Staff from '../models/staffs';
 
 const router = Router();
 
