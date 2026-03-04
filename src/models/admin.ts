@@ -1,15 +1,14 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IUser extends Document {
+export interface IAdmin extends Document {
     username: string;
     name: string;
     email: string;
     phoneNumber: string;
     passwordHash: string;
-    role: 'user' | 'staff' | 'admin';
 };
 
-const UserSchema: Schema = new Schema({
+const AdminSchema: Schema = new Schema({
     username: {
         type: String,
         required: true,
@@ -43,14 +42,9 @@ const UserSchema: Schema = new Schema({
     passwordHash: {
         type: String,
         required: true
-    },
-    role: {
-        type: String,
-        enum: ['user', 'staff', 'admin'],
-        default: 'user'
     }
 }, {
     timestamps: true
 });
 
-export default mongoose.model<IUser>('User', UserSchema);
+export default mongoose.model<IAdmin>('Admin', AdminSchema);

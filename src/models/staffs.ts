@@ -1,49 +1,36 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-export interface IStudent extends Document {
+export interface IStaff extends Document {
     userId: mongoose.Types.ObjectId;
     username: string;
     name: string;
     email: string;
     phoneNumber: string;
     passwordHash: string;
-    registrationNumber: string;
-    department: 'CSE' | 'IT' | 'AIDS';
-    yearOfStudy: 2 | 3 | 4;
-    fatherNumber: string;
-    motherNumber: string;
+    tutorOf?: 'CSE' | 'IT' | 'AIDS';
+    year?: 2 | 3 | 4;
+    subjects?: string[];
 };
 
-const StudentSchema: Schema = new Schema({
+const StaffSchema: Schema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
         unique: true
     },
-    registrationNumber: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true,
-    },
-    department: {
+    tutorOf: {
         type: String,
         enum: ['CSE', 'IT', 'AIDS'],
-        required: true
-    },
-    yearOfStudy: {
-        type: Number,
-        enum: [2, 3, 4],
-        required: true
-    },
-    fatherNumber: {
-        type: String,
         required: false
     },
-    motherNumber: {
-        type: String,
+    year: {
+        type: Number,
+        enum: [2, 3, 4],
+        required: false
+    },
+    subjects: {
+        type: [String],
         required: false
     },
     username: {
@@ -80,9 +67,8 @@ const StudentSchema: Schema = new Schema({
         type: String,
         required: true
     }
-    
 }, {
     timestamps: true
 });
 
-export default mongoose.model<IStudent>('Student', StudentSchema);
+export default mongoose.model<IStaff>('Staff', StaffSchema);
