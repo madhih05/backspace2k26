@@ -257,21 +257,6 @@ section {
     width: 100%;
 }
 
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 6px;
-}
-
-.hamburger span {
-    width: 25px;
-    height: 3px;
-    background: var(--primary-color);
-    border-radius: 2px;
-    transition: var(--transition);
-}
-
 /* ============================================
    Hero Section
    ============================================ */
@@ -1274,52 +1259,8 @@ section {
         gap: 8px;
     }
 
-    .hamburger {
-        gap: 5px;
-    }
-
-    .hamburger span {
-        width: 22px;
-        height: 2px;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
     .nav-menu {
-        position: fixed;
-        top: var(--mobile-nav-height);
-        left: 0;
-        width: 100%;
-        flex-direction: column;
-        background: var(--white);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        gap: 0;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-menu.active {
-        max-height: 400px;
-    }
-
-    .nav-menu li {
-        padding: 15px 20px;
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(10px, 10px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -7px);
+        display: none;
     }
 
     section {
