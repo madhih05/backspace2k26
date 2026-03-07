@@ -6,18 +6,21 @@
    Variables & Color Scheme
    ============================================ */
 :root {
-    --primary-color: #1e3a8a;
+    --primary-color: #00f0ff;
     --secondary-color: #0f766e;
     --accent-color: #d97706;
     --light-accent: #fbbf24;
-    --dark-bg: #0f172a;
-    --light-bg: #f8fafc;
+    --dark-1: #0a0a12;
+    --dark-2: #12121f;
+    --dark-3: #1a1a2e;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
     --text-dark: #1e293b;
-    --text-light: #64748b;
+    --text-light: rgba(255, 255, 255, 0.6);
     --white: #ffffff;
-    --border-color: #e2e8f0;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.4);
     --transition: all 0.3s ease;
 }
 
@@ -59,7 +62,6 @@
     background: radial-gradient(circle, #d97706 0%, #fbbf24 100%);
     border-radius: 50%;
     opacity: 0;
-    box-shadow: 0 0 10px rgba(217, 119, 6, 0.4);
     animation: float-particle linear infinite;
 }
 
@@ -104,10 +106,26 @@ html {
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-dark);
-    background-color: var(--white);
+    color: #ffffff;
+    background: var(--dark-1);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 1;
 }
 
 a {
@@ -126,16 +144,23 @@ ul {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
+    z-index: 10;
 }
 
 section {
     padding: 80px 0;
+    position: relative;
+    z-index: 10;
 }
 
 .section-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #ffffff 50%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-align: center;
     margin-bottom: 20px;
     position: relative;
@@ -166,11 +191,13 @@ section {
    Navigation Bar
    ============================================ */
 .navbar {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     transition: var(--transition);
 }
 
@@ -206,7 +233,7 @@ section {
 .nav-link {
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--text-dark);
+    color: rgba(255, 255, 255, 0.8);
     transition: var(--transition);
     position: relative;
 }
@@ -216,14 +243,14 @@ section {
     position: absolute;
     width: 0;
     height: 2px;
-    background: var(--accent-color);
+    background: var(--primary-color);
     bottom: -5px;
     left: 0;
     transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .nav-link:hover::after {
@@ -249,7 +276,7 @@ section {
    Hero Section
    ============================================ */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: transparent;
     color: var(--white);
     padding: 40px 0 120px 0;
     position: relative;
@@ -388,13 +415,28 @@ section {
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .partnership {
     margin-top: 15px;
+    margin-bottom: 12px;
     font-weight: 500;
     color: var(--light-accent);
+}
+
+.partner-logo {
+    display: block;
+    width: 140px;
+    height: auto;
+    margin: 15px auto;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.partner-logo:hover {
+    transform: scale(1.05);
 }
 
 .hero-buttons {
@@ -424,26 +466,27 @@ section {
 }
 
 .btn-primary {
-    background: var(--accent-color);
-    color: var(--white);
-    box-shadow: 0 5px 15px rgba(217, 119, 6, 0.3);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
 }
 
 .btn-primary:hover {
-    background: #c85c00;
+    background: rgba(0, 240, 255, 0.15);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.4);
 }
 
 .btn-secondary {
     background: transparent;
-    color: var(--white);
-    border: 2px solid var(--white);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--glass-border);
 }
 
 .btn-secondary:hover {
-    background: var(--white);
-    color: var(--primary-color);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
     transform: translateY(-3px);
 }
 
@@ -456,42 +499,43 @@ section {
    About Section
    ============================================ */
 .about {
-    background: var(--light-bg);
+    background: transparent;
     position: relative;
 }
 
 .about-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     margin-top: 60px;
 }
 
 .about-card {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 40px 30px;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
+    border-radius: 20px;
     transition: var(--transition);
     text-align: center;
-    border-top: 4px solid var(--primary-color);
 }
 
 .about-card.legacy {
-    border-top-color: var(--accent-color);
+    border-top: 4px solid var(--accent-color);
 }
 
 .about-card.objective {
-    border-top-color: var(--secondary-color);
+    border-top: 4px solid var(--secondary-color);
 }
 
 .about-card.community {
-    border-top-color: var(--light-accent);
+    border-top: 4px solid var(--light-accent);
 }
 
 .about-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .card-icon {
@@ -502,7 +546,7 @@ section {
 
 .about-card h3 {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 15px;
 }
 
@@ -515,7 +559,7 @@ section {
    Themes / Call for Papers Section
    ============================================ */
 .themes {
-    background: var(--white);
+    background: transparent;
     position: relative;
 }
 
@@ -528,7 +572,10 @@ section {
 }
 
 .theme-tag {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     color: var(--white);
     padding: 12px 25px;
     border-radius: 50px;
@@ -536,14 +583,12 @@ section {
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2);
-    border: 2px solid transparent;
 }
 
 .theme-tag:hover {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--light-accent) 100%);
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--primary-color);
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(217, 119, 6, 0.3);
 }
 
 .themes-note {
@@ -557,7 +602,7 @@ section {
    Important Dates / Timeline
    ============================================ */
 .dates {
-    background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(15, 118, 110, 0.05) 100%);
+    background: transparent;
 }
 
 .timeline {
@@ -605,29 +650,30 @@ section {
     width: 20px;
     height: 20px;
     background: var(--accent-color);
-    border: 4px solid var(--white);
+    border: 4px solid var(--dark-2);
     border-radius: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 0 0 3px var(--accent-color);
     z-index: 10;
 }
 
 .timeline-content {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 25px 30px;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
+    border-radius: 15px;
     transition: var(--transition);
 }
 
 .timeline-content:hover {
-    box-shadow: var(--shadow-lg);
+    background: rgba(255, 255, 255, 0.05);
     transform: translateY(-5px);
 }
 
 .timeline-content h4 {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 8px;
 }
 
@@ -660,7 +706,7 @@ section {
    Registration Section
    ============================================ */
 .registration {
-    background: var(--white);
+    background: transparent;
 }
 
 .registration-content {
@@ -681,10 +727,12 @@ section {
 .fee-table {
     border-collapse: collapse;
     width: 100%;
-    background: var(--white);
-    border-radius: 10px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: var(--shadow);
 }
 
 .fee-row {
@@ -695,12 +743,13 @@ section {
 }
 
 .fee-row:hover {
-    background: rgba(217, 119, 6, 0.05);
+    background: rgba(0, 240, 255, 0.05);
 }
 
 .fee-row.header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: var(--white);
+    background: var(--glass-bg);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
     font-weight: 700;
 }
 
@@ -711,9 +760,12 @@ section {
 }
 
 .bank-info {
-    background: var(--light-bg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     border-left: 4px solid var(--accent-color);
 }
 
@@ -732,24 +784,27 @@ section {
 
 .info-item label {
     font-weight: 600;
-    color: var(--primary-color);
+    color: #ffffff;
 }
 
 .info-item span {
-    color: var(--text-dark);
+    color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
 }
 
 .registration-instructions {
-    background: rgba(15, 118, 110, 0.05);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     margin-bottom: 40px;
     border-left: 4px solid var(--secondary-color);
 }
 
 .registration-instructions h3 {
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 20px;
 }
 
@@ -760,7 +815,7 @@ section {
 .instructions-list li {
     padding: 10px 0 10px 30px;
     position: relative;
-    color: var(--text-dark);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .instructions-list li::before {
@@ -773,21 +828,24 @@ section {
 }
 
 .perks-section {
-    background: rgba(217, 119, 6, 0.05);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     margin-bottom: 40px;
     border-left: 4px solid var(--accent-color);
 }
 
 .perks-section h3 {
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 25px;
 }
 
 .perks-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 20px;
 }
 
@@ -796,14 +854,15 @@ section {
     align-items: center;
     gap: 15px;
     padding: 15px;
-    background: var(--white);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
     transition: var(--transition);
 }
 
 .perk-item:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .perk-item i {
@@ -825,21 +884,23 @@ section {
    Guidelines Section
    ============================================ */
 .guidelines {
-    background: var(--light-bg);
+    background: transparent;
 }
 
 .guidelines-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 60px;
 }
 
 .guideline-card {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
+    border-radius: 15px;
     transition: var(--transition);
     text-align: center;
 }
@@ -850,7 +911,7 @@ section {
 
 .guideline-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .guideline-icon {
@@ -861,12 +922,12 @@ section {
 
 .guideline-card h3 {
     font-size: 1.3rem;
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 15px;
 }
 
 .guideline-card p {
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 15px;
 }
 
@@ -879,7 +940,7 @@ section {
 .format-list li,
 .publication-list li {
     padding: 8px 0;
-    color: var(--text-dark);
+    color: rgba(255, 255, 255, 0.8);
     position: relative;
     padding-left: 25px;
 }
@@ -900,14 +961,14 @@ section {
 }
 
 .guideline-card a:hover {
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 /* ============================================
    Speakers Section
    ============================================ */
 .speakers {
-    background: var(--white);
+    background: transparent;
 }
 
 .chief-guest {
@@ -917,14 +978,17 @@ section {
 
 .chief-guest h3 {
     font-size: 1.8rem;
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 40px;
 }
 
 .speaker-card {
-    background: var(--light-bg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 40px 30px;
-    border-radius: 15px;
+    border-radius: 20px;
     text-align: center;
     transition: var(--transition);
     display: flex;
@@ -932,18 +996,16 @@ section {
     align-items: center;
     max-width: 350px;
     width: 100%;
-    border: 2px solid transparent;
     margin: 0 auto;
 }
 
 .speaker-card:hover {
-    border-color: var(--accent-color);
+    border-color: var(--primary-color);
     transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .speaker-card.chief {
-    background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(251, 191, 36, 0.1));
     border-color: var(--accent-color);
 }
 
@@ -970,7 +1032,6 @@ section {
     font-size: 0;
     position: relative;
     z-index: 2;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     margin-bottom: 0;
 }
 
@@ -996,7 +1057,7 @@ section {
 
 .speaker-card h4 {
     font-size: 1.3rem;
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 8px;
 }
 
@@ -1007,20 +1068,20 @@ section {
 }
 
 .speaker-affiliation {
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.95rem;
 }
 
 .keynote-speakers h3 {
     font-size: 1.8rem;
-    color: var(--primary-color);
+    color: #ffffff;
     text-align: center;
     margin-bottom: 50px;
 }
 
 .speakers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 30px;
 }
 
@@ -1028,28 +1089,30 @@ section {
    Contact Section
    ============================================ */
 .contact {
-    background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(15, 118, 110, 0.05) 100%);
+    background: transparent;
 }
 
 .contact-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     margin-top: 60px;
 }
 
 .contact-card {
-    background: var(--white);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     padding: 35px 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     text-align: center;
-    box-shadow: var(--shadow);
     transition: var(--transition);
 }
 
 .contact-card:hover {
     transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .contact-icon {
@@ -1060,29 +1123,32 @@ section {
 
 .contact-card h3 {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: 12px;
 }
 
 .contact-card p {
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .contact-card a {
-    color: var(--accent-color);
+    color: var(--primary-color);
     font-weight: 600;
     transition: var(--transition);
 }
 
 .contact-card a:hover {
-    color: var(--primary-color);
+    color: var(--white);
 }
 
 /* ============================================
    Footer
    ============================================ */
 .footer {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
     color: var(--white);
     padding: 60px 0 30px;
 }
@@ -1183,6 +1249,10 @@ section {
 
     .nav-menu {
         gap: 25px;
+    }
+
+    .speakers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -1301,9 +1371,9 @@ section {
         line-height: 1.35;
     }
 
-    .college-line {
-        flex-direction: column;
-        gap: 6px;
+    .partner-logo {
+        width: 110px;
+        padding: 10px;
     }
 
     .college-logo {
