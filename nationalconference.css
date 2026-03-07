@@ -22,6 +22,74 @@
 }
 
 /* ============================================
+   Particle Background Effects
+   ============================================ */
+@keyframes float-particle {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh) translateX(0);
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100vh) translateX(100px);
+    }
+}
+
+.particle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #d97706 0%, #fbbf24 100%);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 10px rgba(217, 119, 6, 0.4);
+    animation: float-particle linear infinite;
+}
+
+.particle:nth-child(1) { left: 5%; animation-duration: 15s; animation-delay: 0s; }
+.particle:nth-child(2) { left: 12%; animation-duration: 18s; animation-delay: 1.2s; }
+.particle:nth-child(3) { left: 18%; animation-duration: 20s; animation-delay: 2.4s; }
+.particle:nth-child(4) { left: 25%; animation-duration: 17s; animation-delay: 0.8s; }
+.particle:nth-child(5) { left: 32%; animation-duration: 19s; animation-delay: 1.6s; }
+.particle:nth-child(6) { left: 38%; animation-duration: 16s; animation-delay: 2.8s; }
+.particle:nth-child(7) { left: 45%; animation-duration: 21s; animation-delay: 1.4s; }
+.particle:nth-child(8) { left: 52%; animation-duration: 18s; animation-delay: 2.2s; }
+.particle:nth-child(9) { left: 58%; animation-duration: 20s; animation-delay: 0.6s; }
+.particle:nth-child(10) { left: 65%; animation-duration: 19s; animation-delay: 1.8s; }
+.particle:nth-child(11) { left: 72%; animation-duration: 17s; animation-delay: 3s; }
+.particle:nth-child(12) { left: 78%; animation-duration: 18s; animation-delay: 0.4s; }
+.particle:nth-child(13) { left: 85%; animation-duration: 20s; animation-delay: 2.6s; }
+.particle:nth-child(14) { left: 92%; animation-duration: 19s; animation-delay: 1s; }
+.particle:nth-child(15) { left: 8%; animation-duration: 21s; animation-delay: 3.2s; }
+.particle:nth-child(16) { left: 15%; animation-duration: 16s; animation-delay: 2s; }
+.particle:nth-child(17) { left: 22%; animation-duration: 19s; animation-delay: 0.2s; }
+.particle:nth-child(18) { left: 35%; animation-duration: 18s; animation-delay: 3.4s; }
+.particle:nth-child(19) { left: 48%; animation-duration: 20s; animation-delay: 1.5s; }
+.particle:nth-child(20) { left: 62%; animation-duration: 17s; animation-delay: 2.7s; }
+.particle:nth-child(21) { left: 75%; animation-duration: 21s; animation-delay: 0.9s; }
+.particle:nth-child(22) { left: 88%; animation-duration: 19s; animation-delay: 3.1s; }
+.particle:nth-child(23) { left: 10%; animation-duration: 18s; animation-delay: 1.7s; }
+.particle:nth-child(24) { left: 42%; animation-duration: 20s; animation-delay: 3.3s; }
+.particle:nth-child(25) { left: 68%; animation-duration: 16s; animation-delay: 2.3s; }
+
+/* ============================================
    Global Styles
    ============================================ */
 * {
@@ -301,6 +369,26 @@ section {
     font-size: 1.15rem;
     margin: 8px 0;
     font-weight: 500;
+}
+
+.college-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.college-line span {
+    font-weight: 700;
+}
+
+.college-logo {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .partnership {
@@ -865,6 +953,47 @@ section {
     margin-bottom: 20px;
 }
 
+/* Chief Guest Image Frame Styling */
+.image-frame-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 160px;
+    height: 160px;
+}
+
+.image-frame-wrapper img.speaker-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    font-size: 0;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    margin-bottom: 0;
+}
+
+.frame-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    z-index: 1;
+    animation: rotate-frame 20s linear infinite;
+}
+
+@keyframes rotate-frame {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
 .speaker-card h4 {
     font-size: 1.3rem;
     color: var(--primary-color);
@@ -1061,13 +1190,36 @@ section {
    Responsive Design - Mobile
    ============================================ */
 @media (max-width: 768px) {
+    :root {
+        --mobile-nav-height: 58px;
+    }
+
+    .nav-container {
+        height: var(--mobile-nav-height);
+        padding: 0 14px;
+    }
+
+    .nav-logo {
+        font-size: 1.2rem;
+        gap: 8px;
+    }
+
+    .hamburger {
+        gap: 5px;
+    }
+
+    .hamburger span {
+        width: 22px;
+        height: 2px;
+    }
+
     .hamburger {
         display: flex;
     }
 
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: var(--mobile-nav-height);
         left: 0;
         width: 100%;
         flex-direction: column;
@@ -1114,34 +1266,64 @@ section {
     }
 
     .hero {
-        min-height: auto;
-        padding: 80px 0;
+        height: calc(100dvh - var(--mobile-nav-height));
+        min-height: calc(100dvh - var(--mobile-nav-height));
+        padding: 22px 0;
+        box-sizing: border-box;
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        margin-bottom: 12px;
+        line-height: 1.15;
     }
 
     .hero-subtitle {
-        font-size: 1.8rem;
+        font-size: 1.25rem;
+        margin-bottom: 16px;
     }
 
     .hero-meta {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
+        margin-bottom: 18px;
     }
 
     .hero-organizer {
-        padding: 20px;
+        padding: 8px 0;
+        margin-top: 0;
+        margin-bottom: 14px;
+    }
+
+    .hero-organizer p {
+        font-size: 0.9rem;
+        margin: 4px 0;
+        line-height: 1.35;
+    }
+
+    .college-line {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .college-logo {
+        width: 85px;
+        height: 85px;
+    }
+
+    .meta-item {
+        font-size: 0.92rem;
+        padding: 8px 14px;
     }
 
     .hero-buttons {
         gap: 10px;
+        margin-top: 14px;
     }
 
     .btn {
-        padding: 12px 30px;
-        font-size: 0.9rem;
+        padding: 10px 22px;
+        font-size: 0.82rem;
     }
 
     .about-content {
@@ -1207,6 +1389,17 @@ section {
         justify-items: center;
     }
 
+    .image-frame-wrapper {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 15px;
+    }
+
+    .frame-svg {
+        width: 160px;
+        height: 160px;
+    }
+
     .contact-content {
         grid-template-columns: 1fr;
     }
@@ -1229,12 +1422,16 @@ section {
 }
 
 @media (max-width: 480px) {
+    .nav-container {
+        padding: 0 12px;
+    }
+
     .hero-title {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
     }
 
     .hero-subtitle {
-        font-size: 1.3rem;
+        font-size: 1.05rem;
     }
 
     .section-title {
@@ -1242,7 +1439,7 @@ section {
     }
 
     .nav-logo {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
     }
 
     .btn {
