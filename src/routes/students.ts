@@ -3,6 +3,7 @@ import Student from '../models/students';
 const router = Router();
 import { verifyToken, AuthRequest } from '../middleware/auth.middleware';
 import Staff from '../models/staffs';
+import Admin from '../models/admin';
 
 
 router.get('/', verifyToken, async (req: AuthRequest, res) => {
@@ -16,6 +17,7 @@ router.get('/', verifyToken, async (req: AuthRequest, res) => {
             })
             return res.json(student);
         }
+        if (role === "admin") {
         const query = req.query.q as string | undefined;
         const year = req.query.year as string | undefined;
         const dept = req.query.dept as string | undefined;
