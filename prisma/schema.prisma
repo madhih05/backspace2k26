@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model MonthlyAttendance {
+  id                 Int     @id @default(autoincrement())
+  month              Int     // e.g., 3 (for March)
+  year               Int     // e.g., 2026
+  registrationNumber String
+  userId             String? // Storing the MongoDB ObjectId as a string
+  
+  // The 31 days of the month (storing 'present', 'absent', 'late', or null)
+  d1  String? 
+  d2  String? 
+  d3  String? 
+  d4  String? 
+  d5  String? 
+  d6  String?
+  d7  String?
+  d8  String?
+  d9  String?
+  d10 String?
+  d11 String?
+  d12 String?
+  d13 String?
+  d14 String?
+  d15 String?
+  d16 String?
+  d17 String?
+  d18 String?
+  d19 String?
+  d20 String?
+  d21 String?
+  d22 String?
+  d23 String?
+  d24 String?
+  d25 String?
+  d26 String?
+  d27 String?
+  d28 String?
+  d29 String?
+  d30 String?
+  d31 String? 
+
+  // This ensures one student only has one row per month/year
+  @@unique([registrationNumber, month, year])
+}
