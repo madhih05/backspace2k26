@@ -3,18 +3,20 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") 
 }
+
+// ... Keep your entire MonthlyAttendance model with d1 through d31 down here ...
 
 model MonthlyAttendance {
   id                 Int     @id @default(autoincrement())
-  month              Int     // e.g., 3 (for March)
-  year               Int     // e.g., 2026
+  month              Int     
+  year               Int     
   registrationNumber String
-  userId             String? // Storing the MongoDB ObjectId as a string
+  userId             String? 
   
-  // The 31 days of the month (storing 'present', 'absent', 'late', or null)
   d1  String? 
   d2  String? 
   d3  String? 
@@ -47,6 +49,5 @@ model MonthlyAttendance {
   d30 String?
   d31 String? 
 
-  // This ensures one student only has one row per month/year
   @@unique([registrationNumber, month, year])
 }
