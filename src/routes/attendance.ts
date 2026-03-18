@@ -1,4 +1,5 @@
 import { Request, Response, Router } from "express";
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import { authorizeRoles, verifyToken, AuthRequest } from "../middleware/auth.middleware";
 import Staff from "../models/staffs";
