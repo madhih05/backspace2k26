@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsc --watch",
-    "test": "node src/index.ts"
+    "test": "npm run build && node dist/index.js"
   },
   "repository": {
     "type": "git",

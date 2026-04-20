@@ -3,50 +3,71 @@ import Student from '../models/students';
 const router = Router();
 import { verifyToken, AuthRequest } from '../middleware/auth.middleware';
 import Staff from '../models/staffs';
-import Admin from '../models/admin';
 
 
 router.get('/', verifyToken, async (req: AuthRequest, res) => {
     try {
         const role = req.role;
         const userId = req.userId;
+
+        if (!role || !userId) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
         if (role === "student") {
-            const student = await Student.findOne({userId}).select('userId registrationNumber department yearOfStudy').populate({
+            const student = await Student.findOne({ userId })
+                .select('userId registrationNumber department yearOfStudy')
+                .populate({
                 path: 'userId',
                 select: 'name'
-            })
+            });
+
+            if (!student) {
+                return res.status(404).json({ message: 'Student not found' });
+            }
+
             return res.json(student);
         }
+
         if (role === "admin") {
-        const query = req.query.q as string | undefined;
-        const year = req.query.year as string | undefined;
-        const dept = req.query.dept as string | undefined;
-        let filter: any = {};
-        
-        if (query) {
-            filter.$or = [
-                { name: { $regex: query, $options: 'i' } },
-                { registrationNumber: { $regex: query, $options: 'i' } }
-            ];
+            const students = await Student.find({})
+                .select('userId registrationNumber department yearOfStudy')
+                .populate({
+                    path: 'userId',
+                    select: 'name'
+                });
+
+            return res.json(students);
         }
-        if (year) {
-            filter.age = { $gte: Number(year) };
-        }
-        if (dept) {
-            filter.grade = dept;
-        }
+
         if (role === "staff") {
-            const staff = await Staff.findOne({userId}).select('userId department year');
-            filter.department = 
-            const students = await 
+            const staff = await Staff.findOne({ userId }).select('tutorOf year');
+            if (!staff) {
+                return res.status(404).json({ message: 'Staff not found' });
+            }
+
+            const filter: any = {};
+            if (staff.tutorOf) {
+                filter.department = staff.tutorOf;
+            }
+            if (staff.year) {
+                filter.yearOfStudy = staff.year;
+            }
+
+            const students = await Student.find(filter)
+                .select('userId registrationNumber department yearOfStudy')
+                .populate({
+                    path: 'userId',
+                    select: 'name'
+                });
+
+            return res.json(students);
         }
-        const students = await Student.find(filter).select('userId registrationNumber department yearOfStudy').populate({
-        path: 'userId',
-        select: 'name'
-    });
-        res.json(students);
-    } catch (err: any) {
-        res.status(500).json({ message: err.message });
+
+        return res.status(403).json({ message: 'Forbidden' });
+    } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : 'Internal server error';
+        res.status(500).json({ message });
     }
 });
 

@@ -3,11 +3,16 @@ import logger from '../helper/logger';
 import mailSender from '../helper/mailer';
 import Otp from '../models/otp';
 import { Router } from 'express';
-import Admin from '../models/admin';
 import Student from '../models/students';
-import Staff from '../models/staffs';
+import AuthorizedUser from '../models/authorizedUsers';
 
 const router = Router();
+
+type OtpRole = 'student' | 'admin' | 'staff';
+
+const isValidRole = (role: unknown): role is OtpRole => {
+    return role === 'student' || role === 'admin' || role === 'staff';
+};
 
 router.post('/', async (req, res) => {
     try {
@@ -17,14 +22,29 @@ router.post('/', async (req, res) => {
             });
         }
         const email = req.body.email;
-        const role = req.body.role || 'student';
+        const role = req.body.role ?? 'student';
         if (!email) {
             return res.status(400).json({ message: "Email is required" });
         }
-        const existingUser = await User.findOne({ email });
-        if (existingUser && role === 'student') {
-            return res.status(400).json({ message: "User with this email already exists" });
+
+        if (!isValidRole(role)) {
+            return res.status(400).json({ message: 'Invalid role' });
         }
+
+        if (role === 'student') {
+            const existingStudent = await Student.findOne({ email });
+            if (existingStudent) {
+                return res.status(400).json({ message: 'User with this email already exists' });
+            }
+        }
+
+        if (role === 'staff' || role === 'admin') {
+            const existingAuthorizedUser = await AuthorizedUser.findOne({ email, role });
+            if (!existingAuthorizedUser) {
+                return res.status(403).json({ message: 'You are not authorized to request this OTP' });
+            }
+        }
+
         const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
         const otpEntry = new Otp({ email, role, otp: otpCode });
 
