@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IStaff extends Document {
-    userId: mongoose.Types.ObjectId;
     username: string;
     name: string;
     email: string;
@@ -13,12 +12,6 @@ export interface IStaff extends Document {
 };
 
 const StaffSchema: Schema = new Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-        unique: true
-    },
     tutorOf: {
         type: String,
         enum: ['CSE', 'IT', 'AIDS'],

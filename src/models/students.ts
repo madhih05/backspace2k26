@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IStudent extends Document {
-    userId: mongoose.Types.ObjectId;
     username: string;
     name: string;
     email: string;
@@ -15,12 +14,6 @@ export interface IStudent extends Document {
 };
 
 const StudentSchema: Schema = new Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-        unique: true
-    },
     registrationNumber: {
         type: String,
         required: true,

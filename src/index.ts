@@ -7,6 +7,7 @@ import studentRouter from './routes/students';
 import logger from './helper/logger';
 import requestLogger from './middleware/request.logger';
 import otpRouter from './routes/otp';
+import loginRouter from './routes/login';
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
@@ -28,6 +29,23 @@ mongoose.connect(mongodbUri)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
+
+app.use((req: Request, res: Response, next) => {
+    const origin = req.headers.origin;
+    if (origin === 'http://localhost:5173') {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+
+    next();
+});
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
@@ -42,6 +60,7 @@ app.get('/backspace', (req: Request, res: Response) => {
 app.use('/register', registrationRouter);
 app.use('/otp', otpRouter);
 app.use('/students', studentRouter);
+app.use('/login', loginRouter);
 
 app.listen(PORT, HOST, () => {
     logger.info(`Server running at http://${HOST}:${PORT}`);
