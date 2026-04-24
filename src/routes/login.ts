@@ -65,7 +65,7 @@ router.post('/me', verifyToken, async (req: AuthRequest, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.json(user);
+        res.json({ id: user._id });
     } catch (error) {
         console.error("Fetch user error:", error);
         res.status(500).json({ message: "Internal server error" });
