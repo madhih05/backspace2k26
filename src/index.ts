@@ -2,12 +2,9 @@ import 'dotenv/config'; // Loads variables from .env
 import mongoose from "mongoose";
 import express, { Request, Response } from 'express';
 import path from 'path';
-import registrationRouter from './routes/register';
-import studentRouter from './routes/students';
 import logger from './helper/logger';
 import requestLogger from './middleware/request.logger';
-import otpRouter from './routes/otp';
-import loginRouter from './routes/login';
+import apiRoutes from './routes/api';
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
@@ -48,19 +45,7 @@ app.use((req: Request, res: Response, next) => {
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Routes
-app.get('/', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-
-app.get('/backspace', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../public/backspace.html'));
-});
-
-app.use('/register', registrationRouter);
-app.use('/otp', otpRouter);
-app.use('/students', studentRouter);
-app.use('/login', loginRouter);
+app.use('/api', apiRoutes);
 
 app.listen(PORT, HOST, () => {
     logger.info(`Server running at http://${HOST}:${PORT}`);
