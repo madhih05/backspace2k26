@@ -6,6 +6,8 @@ import Staff from "../models/staffs";
 import Student from "../models/students";
 const prisma = new PrismaClient();
 const router = Router();
+
+
 // Only staff can access this route
 router.post('/markClass', verifyToken, authorizeRoles('staff'), async (req: AuthRequest, res: Response) => {
     try {
